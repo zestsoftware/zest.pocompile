@@ -34,15 +34,21 @@ roughly these contents (not all files are shown)::
   your.package/setup.py
   your.package/your/package/locales/nl/LC_MESSAGES/domain.po
 
-Then you need a MANIFEST.in with this line::
+Then you need a MANIFEST.in like this::
 
   recursive-include your *
+  global-exclude *pyc
 
 This tells distutils to recursively include all (``*``) files and
 directories within the ``your`` directory.  Try it: copy the
 ``domain.po`` file to ``domain.mo`` as a silly test, run ``python
 setup.py sdist`` and check that the ``.mo`` file ends up in the
 created distribution.
+
+Note that the line ``global-exclude *pyc`` may not be strictly
+necessary (at least when using ``zest.releaser`` as it does a fresh
+checkout of a tag when releasing), but it does not hurt and it avoids
+unnecessarily adding compiled python files in the release.
 
 With that part working, the only thing this ``zest.pocompile`` package
 needs to do, is to actually find all ``.po`` files and compile them to
