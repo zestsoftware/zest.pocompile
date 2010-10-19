@@ -47,8 +47,11 @@ created distribution.
 
 Note that the line ``global-exclude *pyc`` may not be strictly
 necessary (at least when using ``zest.releaser`` as it does a fresh
-checkout of a tag when releasing), but it does not hurt and it avoids
-unnecessarily adding compiled python files in the release.
+checkout of a tag when releasing), but it avoids unnecessarily adding
+compiled python files in the release and it does not hurt, except that
+you may get a warning during release::
+
+  warning: no previously-included files matching '*pyc' found anywhere in distribution
 
 With that part working, the only thing this ``zest.pocompile`` package
 needs to do, is to actually find all ``.po`` files and compile them to
