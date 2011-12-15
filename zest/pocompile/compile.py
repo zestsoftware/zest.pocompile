@@ -30,7 +30,12 @@ logger = logging.getLogger('zest.pocompile')
 def find_locales(path, dry_run=False):
     """find 'locales' directories and compile .po files
 
-    note: Django uses 'locale' (singular form)
+    note: Django uses 'locale' (singular form).  And there might be
+    directories under different names like 'plonelocales' or
+    'locales_for_version_2_only'.  So we just look for any directory
+    that has 'locale' in its name.  The further checks in the
+    compile_po function make sure that this does not give any false
+    positives.
 
     Accepts an optional dry_run argument and passes this on.
 
@@ -41,7 +46,7 @@ def find_locales(path, dry_run=False):
         if not os.path.isdir(dir_path):
             continue
 
-        if directory in ('locales', 'locale'):
+        if 'locale' in directory:
             compile_po(dir_path, dry_run=dry_run)
         # Whether the compile_po line found po files or not, we always
         # recurse into this directory.  We may have found e.g. the

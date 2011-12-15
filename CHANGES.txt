@@ -4,7 +4,13 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Look for ``.po`` files in any directory that has 'locale' in its name.
+  No longer not restrict ``.po`` file search to directories explicitly
+  named ``locales`` or ``locale``, as they could also have names like
+  ``plonelocales`` or ``locales_for_version_2_only``.  Note that in
+  Plone ``.po`` files can also be in an i18n directory, but those
+  should not be compiled.
+  [maurits]
 
 
 1.0 (2010-10-19)
