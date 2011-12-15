@@ -27,59 +27,44 @@ except ImportError:
 logger = logging.getLogger('zest.pocompile')
 
 
-def find_locales(path, dry_run=False):
-    """find 'locales' directories and compile .po files
-
-    note: Django uses 'locale' (singular form).  And there might be
-    directories under different names like 'plonelocales' or
-    'locales_for_version_2_only'.  So we just look for any directory
-    that has 'locale' in its name.  The further checks in the
-    compile_po function make sure that this does not give any false
-    positives.
+def find_lc_messages(path, dry_run=False):
+    """Find 'LC_MESSAGES' directories and compile all .po files in it.
 
     Accepts an optional dry_run argument and passes this on.
 
-    Mostly taken from collective.releaser.
+    Adapted from collective.releaser.
     """
     for directory in os.listdir(path):
         dir_path = join(path, directory)
         if not os.path.isdir(dir_path):
             continue
 
-        if 'locale' in directory:
+        if directory == 'LC_MESSAGES':
             compile_po(dir_path, dry_run=dry_run)
-        # Whether the compile_po line found po files or not, we always
-        # recurse into this directory.  We may have found e.g. the
-        # plone.app.locales/plone/app/locales dir and we definitely
-        # want to dive into the
-        # plone.app.locales/plone/app/locales/locales dir then.
-        find_locales(dir_path, dry_run=dry_run)
+        else:
+            find_lc_messages(dir_path, dry_run=dry_run)
 
 
 def compile_po(path, dry_run=False):
-    """path is a locales directory, find ??/LC_MESSAGES/*.po and compile
-    them into .mo.
+    """path is a LC_MESSAGES directory.  Compile *.po into *.mo.
 
     Accepts an optional dry_run argument.  When True, only reports the
     found po files, without compiling them.
 
-    Mostly taken from collective.releaser.
+    Adapted from collective.releaser.
     """
-    for language in os.listdir(path):
-        lc_path = join(path, language, 'LC_MESSAGES')
-        if os.path.isdir(lc_path):
-            for domain_file in os.listdir(lc_path):
-                if domain_file.endswith('.po'):
-                    file_path = join(lc_path, domain_file)
-                    if dry_run:
-                        logger.info("Found .po file: %s" % file_path)
-                        continue
-                    logger.info("Building .mo for %s" % file_path)
-                    mo_file = join(lc_path, '%s.mo' % domain_file[:-3])
-                    mo_content = Msgfmt(file_path, name=file_path).get()
-                    mo = open(mo_file, 'wb')
-                    mo.write(mo_content)
-                    mo.close()
+    for domain_file in os.listdir(path):
+        if domain_file.endswith('.po'):
+            file_path = join(path, domain_file)
+            if dry_run:
+                logger.info("Found .po file: %s" % file_path)
+                continue
+            logger.info("Building .mo for %s" % file_path)
+            mo_file = join(path, '%s.mo' % domain_file[:-3])
+            mo_content = Msgfmt(file_path, name=file_path).get()
+            mo = open(mo_file, 'wb')
+            mo.write(mo_content)
+            mo.close()
 
 
 def compile_in_tag(data):
@@ -97,7 +82,7 @@ def compile_in_tag(data):
         return
     logger.info('Finding and compiling po files in %s', tagdir)
     try:
-        find_locales(tagdir)
+        find_lc_messages(tagdir)
     except Exception:
         logger.warn('Finding and compiling aborted after exception.',
                     exc_info=True)
@@ -132,4 +117,4 @@ def main(*args, **kwargs):
     # and that is fine.
     for directory in directories:
         logger.info('Finding and compiling po files in %s', directory)
-        find_locales(directory, options.dry_run)
+        find_lc_messages(directory, options.dry_run)

@@ -9,12 +9,12 @@ Goal
 ====
 
 You want to release a package that has a ``locales`` dir (or
-``locale``, or some other name with ``locale`` in it) with
-translations in ``.po`` files.  You want to include the compiled
-``.mo`` files in your release as well, but you do not want to keep
-those in a revision control system (like subversion) as they are
-binary and can be easily recreated.  That is good.  This package helps
-with that.
+``locale``, or something else as long as it has a ``LC_MESSAGES``
+folder somewhere in it) with translations in ``.po`` files.  You want
+to include the compiled ``.mo`` files in your release as well, but you
+do not want to keep those in a revision control system (like
+subversion) as they are binary and can be easily recreated.  That is
+good.  This package helps with that.
 
 
 Want ``.mo`` files?  Add a ``MANIFEST.in`` file.
@@ -58,9 +58,8 @@ you may get a warning during release::
 
 With that part working, the only thing this ``zest.pocompile`` package
 needs to do, is to actually find all ``.po`` files and compile them to
-``.mo`` files.  It looks for directories that have ``locale`` in their
-name, in all subdirectories looks for a ``LC_MESSAGES`` directory and
-compiles all ``.po`` files in there.
+``.mo`` files.  It looks for directories that are named
+``LC_MESSAGES`` and compiles all ``.po`` files in there.
 
 
 Command line tool
