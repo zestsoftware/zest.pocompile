@@ -9,11 +9,12 @@ Goal
 ====
 
 You want to release a package that has a ``locales`` dir (or
-``locale``) with translations in ``.po`` files.  You want to include
-the compiled ``.mo`` files in your release as well, but you do not
-want to keep those in a revision control system (like subversion) as
-they are binary and can be easily recreated.  This package helps with
-that.
+``locale``, or some other name with ``locale`` in it) with
+translations in ``.po`` files.  You want to include the compiled
+``.mo`` files in your release as well, but you do not want to keep
+those in a revision control system (like subversion) as they are
+binary and can be easily recreated.  That is good.  This package helps
+with that.
 
 
 Want ``.mo`` files?  Add a ``MANIFEST.in`` file.
@@ -24,10 +25,11 @@ distribution, distutils (or setuptools or distribute or distutils2)
 knows which files it should include by looking at the information of
 the revision control system (RCS).  This is why in the case of
 subversion you should use a checkout and not an export: you need the
-versioning information.
+versioning information.  (For other RCS or for subversion 1.7+ you
+currently need to install extra packages like setuptools-git.)
 
-Since the compiled ``.mo`` files are not stored in subversion (or
-another RCS), you need to give a hint on which files to include.  You
+Since the compiled ``.mo`` files are best not stored in subversion (or
+any other RCS), you need to give a hint on which files to include.  You
 do this by adding a ``MANIFEST.in`` file.  Let's say your package has
 roughly these contents (not all files are shown)::
 
@@ -40,7 +42,8 @@ Then you need a MANIFEST.in like this::
   global-exclude *pyc
 
 This tells distutils to recursively include all (``*``) files and
-directories within the ``your`` directory.  Try it: copy the
+directories within the ``your`` directory.  Try it: create a directory
+structure like the above example with a proper ``setup.py``, copy the
 ``domain.po`` file to ``domain.mo`` as a silly test, run ``python
 setup.py sdist`` and check that the ``.mo`` file ends up in the
 created distribution.
@@ -55,7 +58,9 @@ you may get a warning during release::
 
 With that part working, the only thing this ``zest.pocompile`` package
 needs to do, is to actually find all ``.po`` files and compile them to
-``.mo`` files.
+``.mo`` files.  It looks for directories that have ``locale`` in their
+name, in all subdirectories looks for a ``LC_MESSAGES`` directory and
+compiles all ``.po`` files in there.
 
 
 Command line tool
@@ -64,7 +69,7 @@ Command line tool
 When you ``easy_install zest.pocompile`` you get a command line tool
 ``pocompile``.  When you run it, this walks the current directory,
 finds all po translation files in a properly formed locales directory
-and compiles them info mo files.  You can also give it a list of
+and compiles them into mo files.  You can also give it a list of
 directories as arguments instead.  Run it with the ``--help`` option
 to get some help.
 
