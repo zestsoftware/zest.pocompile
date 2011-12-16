@@ -36,10 +36,18 @@ roughly these contents (not all files are shown)::
   your.package/setup.py
   your.package/your/package/locales/nl/LC_MESSAGES/domain.po
 
-Then you need a MANIFEST.in like this::
+Then you need a ``MANIFEST.in`` file like this::
 
   recursive-include your *
-  global-exclude *pyc
+
+Or if you want to be sure to include a bit more, like files in the
+``docs`` directory and unrecognized files in the root directory and
+exclude any .pyc files, you need this::
+
+  recursive-include your *
+  recursive-include docs *
+  include *
+  global-exclude *.pyc
 
 This tells distutils to recursively include all (``*``) files and
 directories within the ``your`` directory.  Try it: create a directory

@@ -4,7 +4,10 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added a larger example of a MANIFEST.in file in the readme.  Also
+  add a MANIFEST.in in zest.pocompile itself, so the CHANGES.txt is
+  included in the source distribution.
+  [maurits]
 
 
 1.1 (2011-12-15)
