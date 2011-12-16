@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.2 (unreleased)
+1.2 (2011-12-16)
 ----------------
 
 - Added a larger example of a MANIFEST.in file in the readme.  Also
