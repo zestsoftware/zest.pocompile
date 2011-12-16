@@ -40,16 +40,10 @@ Then you need a ``MANIFEST.in`` file like this::
 
   recursive-include your *
 
-This tells distutils to recursively include all (``*``) files and
-directories within the ``your`` directory.  Try it: create a directory
-structure like the above example with a proper ``setup.py``, copy the
-``domain.po`` file to ``domain.mo`` as a silly test, run ``python
-setup.py sdist`` and check that the ``.mo`` file ends up in the
-created distribution.
-
 Let's have a bigger example::
 
-  recursive-include your docs *
+  recursive-include your *
+  recursive-include docs *
   include *
   global-exclude *.pyc
 
@@ -58,11 +52,18 @@ now simply go to this page on PyPI if I want to have an example of a
 proper ``MANIFEST.in`` file, so this documentation is now getting
 slightly larger than strictly needed. :-)
 
-``recursive-include your docs *``
-  Include files in the ``your`` directory (from ``your.package``) and
-  the ``docs`` directory.  If a directory does not exist, you will get
-  a warning, so you may want to remove it then, but leaving it there
-  does not hurt.
+``recursive-include your *``
+  This tells distutils to recursively include all (``*``) files and
+  directories within the ``your`` directory.  Try it: create a directory
+  structure like the above example with a proper ``setup.py``, copy the
+  ``domain.po`` file to ``domain.mo`` as a silly test, run ``python
+  setup.py sdist`` and check that the ``.mo`` file ends up in the
+  created distribution.
+
+``recursive-include docs *``
+  Include files in the ``docs`` directory.  If this directory does not
+  exist, you will get a warning, so you may want to remove it then,
+  but leaving it there does not hurt.
 
 ``include *``
   Include unrecognized files in the root directory.  By default only
