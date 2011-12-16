@@ -40,7 +40,7 @@ Then you need a ``MANIFEST.in`` file like this::
 
   recursive-include your *
 
-Let's have a bigger example::
+Or with a bigger example::
 
   recursive-include your *
   recursive-include docs *
