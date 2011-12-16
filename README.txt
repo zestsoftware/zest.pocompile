@@ -40,15 +40,6 @@ Then you need a ``MANIFEST.in`` file like this::
 
   recursive-include your *
 
-Or if you want to be sure to include a bit more, like files in the
-``docs`` directory and unrecognized files in the root directory and
-exclude any .pyc files, you need this::
-
-  recursive-include your *
-  recursive-include docs *
-  include *
-  global-exclude *.pyc
-
 This tells distutils to recursively include all (``*``) files and
 directories within the ``your`` directory.  Try it: create a directory
 structure like the above example with a proper ``setup.py``, copy the
@@ -56,18 +47,46 @@ structure like the above example with a proper ``setup.py``, copy the
 setup.py sdist`` and check that the ``.mo`` file ends up in the
 created distribution.
 
-Note that the line ``global-exclude *pyc`` may not be strictly
-necessary (at least when using ``zest.releaser`` as it does a fresh
-checkout of a tag when releasing), but it avoids unnecessarily adding
-compiled python files in the release and it does not hurt, except that
-you may get a warning during release::
+Let's have a bigger example::
 
-  warning: no previously-included files matching '*pyc' found anywhere in distribution
+  recursive-include your docs *
+  include *
+  global-exclude *.pyc
 
-With that part working, the only thing this ``zest.pocompile`` package
+I will explain the lines one by one for clarity.  And yes: I (Maurits)
+now simply go to this page on PyPI if I want to have an example of a
+proper ``MANIFEST.in`` file, so this documentation is now getting
+slightly larger than strictly needed. :-)
+
+``recursive-include your docs *``
+  Include files in the ``your`` directory (from ``your.package``) and
+  the ``docs`` directory.  If a directory does not exist, you will get
+  a warning, so you may want to remove it then, but leaving it there
+  does not hurt.
+
+``include *``
+  Include unrecognized files in the root directory.  By default only
+  standard files like ``README.txt``, ``setup.py``, and ``setup.cfg``
+  are included, so for example not a ``CHANGES.txt`` file.
+
+``global-exclude *.pyc``
+
+  This avoids unnecessarily adding compiled python files in the release.
+  When these are not there, for example after a fresh checkout, you will
+  get a harmless warning::
+
+    warning: no previously-included files matching '*.pyc' found anywhere in distribution
+
+For more info on creating a source distribution and how to use
+``MANIFEST.in`` see the `Python documentation`_.
+
+.. _`Python documentation`: http://docs.python.org/distutils/sourcedist.html
+
+
+With this part working, the only thing this ``zest.pocompile`` package
 needs to do, is to actually find all ``.po`` files and compile them to
-``.mo`` files.  It looks for directories that are named
-``LC_MESSAGES`` and compiles all ``.po`` files in there.
+``.mo`` files.  It simply looks for directories that are named
+``LC_MESSAGES`` and compiles all ``.po`` files found in there.
 
 
 Command line tool
