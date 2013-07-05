@@ -4,7 +4,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Moved to https://github.com/zestsoftware/zest.pocompile.
+  [maurits]
 
 
 1.3 (2011-12-16)
