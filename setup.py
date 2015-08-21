@@ -5,8 +5,8 @@ version = '1.5.dev0'
 setup(name='zest.pocompile',
       version=version,
       description="Compile po files when releasing a package",
-      long_description=(open("README.txt").read() + "\n" +
-                        open("CHANGES.txt").read()),
+      long_description=(open("README.rst").read() + "\n" +
+                        open("CHANGES.rst").read()),
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
