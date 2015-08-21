@@ -11,6 +11,7 @@ setup(name='zest.pocompile',
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
           "Programming Language :: Python",
+          "Programming Language :: Python :: 2.7",
           "Framework :: Buildout",
           "Topic :: Software Development :: Internationalization",
           ],
