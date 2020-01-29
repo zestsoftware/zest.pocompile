@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.5 (unreleased)
-----------------
+1.5.0 (2020-01-29)
+------------------
 
 - Claim Python 2 and 3 compatibility.
   Seems to work fine.
