@@ -11,12 +11,14 @@ When no directories are specified, the current directory is taken.
 # the option parser.  Do not rely on formatting: line endings are
 # ignored.
 
-import logging
 from optparse import OptionParser
-import os
-import sys
 from os.path import join
 from pythongettext.msgfmt import Msgfmt
+
+import logging
+import os
+import sys
+
 
 try:
     from zest.releaser.utils import ask
