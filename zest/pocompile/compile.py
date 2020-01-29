@@ -17,8 +17,10 @@ import os
 import sys
 from os.path import join
 from pythongettext.msgfmt import Msgfmt
+
 try:
     from zest.releaser.utils import ask
+
     ask  # pyflakes
 except ImportError:
     # No zest.releaser available
@@ -84,29 +86,33 @@ def compile_in_tag(data):
     try:
         find_lc_messages(tagdir)
     except Exception:
-        logger.warn('Finding and compiling aborted after exception.',
-                    exc_info=True)
+        logger.warn('Finding and compiling aborted after exception.', exc_info=True)
         if data and ask:
             # We were called as an entry point of zest.releaser.
-            if not ask("Error compiling po file.  This could mean some "
-                       "languages have no working translations.  Do you want "
-                       "to continue with the release?"):
+            if not ask(
+                "Error compiling po file.  This could mean some "
+                "languages have no working translations.  Do you want "
+                "to continue with the release?"
+            ):
                 sys.exit(1)
 
 
 def main(*args, **kwargs):
     """Run as stand-alone program.
     """
-    logging.basicConfig(level=logging.INFO,
-                        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     # Parsing arguments.  Note that the parse_args call might already
     # stop the program, displaying a help or usage message.
     usage = "usage: %prog [options] <directories>"
     parser = OptionParser(usage=usage, description=__doc__)
     parser.add_option(
-        "-n", "--dry-run", action="store_true", dest="dry_run",
-        help="Only report found po files, without compiling them.")
+        "-n",
+        "--dry-run",
+        action="store_true",
+        dest="dry_run",
+        help="Only report found po files, without compiling them.",
+    )
     options, directories = parser.parse_args()
 
     if not directories:
