@@ -12,8 +12,8 @@ You want to release a package that has a ``locales`` dir (or
 ``locale``, or something else as long as it has a ``LC_MESSAGES``
 folder somewhere in it) with translations in ``.po`` files.  You want
 to include the compiled ``.mo`` files in your release as well, but you
-do not want to keep those in a revision control system (like
-subversion) as they are binary and can be easily recreated.  That is
+do not want to keep those in a revision control system (like git)
+as they are binary and can be easily recreated.  That is
 good.  This package helps with that.
 
 
@@ -21,14 +21,12 @@ Want ``.mo`` files?  Add a ``MANIFEST.in`` file.
 ================================================
 
 When you use ``python setup.py sdist`` to create a source
-distribution, distutils (or setuptools or distribute or distutils2)
-knows which files it should include by looking at the information of
-the revision control system (RCS).  This is why in the case of
-subversion you should use a checkout and not an export: you need the
-versioning information.  (For other RCS or for subversion 1.7+ you
-currently need to install extra packages like setuptools-git.)
+distribution, Python does *not* automatically include all files.
+It might look at the information of the revision control system (RCS),
+but that may or may not work,
+depending on your RCS, your Python version, setuptools, or extra packages like ``setuptools-git``.
 
-Since the compiled ``.mo`` files are best not stored in subversion (or
+Since the compiled ``.mo`` files are best not stored in git (or
 any other RCS), you need to give a hint on which files to include.  You
 do this by adding a ``MANIFEST.in`` file.  Let's say your package has
 roughly these contents (not all files are shown)::
@@ -71,12 +69,9 @@ slightly larger than strictly needed. :-)
   are included, so for example not a ``CHANGES.txt`` file.
 
 ``global-exclude *.pyc``
-
   This avoids unnecessarily adding compiled python files in the release.
   When these are not there, for example after a fresh checkout, you will
-  get a harmless warning::
-
-    warning: no previously-included files matching '*.pyc' found anywhere in distribution
+  get a harmless warning: ``no previously-included files matching '*.pyc' found anywhere in distribution``
 
 For more info on creating a source distribution and how to use
 ``MANIFEST.in`` see the `Python documentation`_.
@@ -115,8 +110,8 @@ with a proper ``MANIFEST.in`` file, releasing a source distribution
 with compiled ``.mo`` files is made easy.
 
 The ``release`` (or ``fullrelease``) command of ``zest.releaser``
-creates a (subversion or other) tag, checks out this tag, creates a
-source distribution (``sdist``) and uploads it to PyPI.  When
+creates a (git or other) tag, checks out this tag, creates a
+source distribution (``sdist``) and possibly a wheel (``bdist_wheel``) and uploads it to PyPI.  When
 ``zest.pocompile`` is added to the mix, it compiles the ``.po`` files
 immediately after checking out the tag, right in time for creating the
 ``sdist``, which should now contain the ``.mo`` files.
@@ -127,12 +122,12 @@ Credits
 
 This package has been cobbled together by Maurits van Rees.
 
-It depends on the `python-gettext`_ package, which itself suggests
-using the Babel_ package, but it does exactly what we need and its
+It depends on the `python-gettext <https://pypi.org/project/python-gettext/>`_ package, which itself suggests
+using the `Babel <https://pypi.org/project/Babel/>`_ package, but it does exactly what we need and its
 releases are stored on PyPI, so we ignore that suggestion.
 
 The main functions are taken from the ``build_mo`` command of
-`collective.releaser`_.
+`collective.releaser <https://pypi.org/project/collective.releaser/>`_.
 
 Thanks!
 
@@ -143,7 +138,4 @@ To Do
 - Add tests.
 
 
-.. _`zest.releaser`: http://pypi.python.org/pypi/zest.releaser
-.. _`python-gettext`: http://pypi.python.org/pypi/python-gettext
-.. _Babel: http://pypi.python.org/pypi/Babel
-.. _`collective.releaser`: http://pypi.python.org/pypi/collective.releaser
+.. _`zest.releaser`: https://pypi.org/project/zest.releaser/
