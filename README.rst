@@ -93,7 +93,7 @@ needs to do, is to actually find all ``.po`` files and compile them to
 Command line tool
 =================
 
-When you ``easy_install zest.pocompile`` you get a command line tool
+When you ``pip install zest.pocompile`` you get a command line tool
 ``pocompile``.  When you run it, this walks the current directory,
 finds all po translation files in a properly formed locales directory
 and compiles them into mo files.  You can also give it a list of
@@ -126,7 +126,7 @@ Credits
 =======
 
 This package has been cobbled together by Maurits van Rees.
- 
+
 It depends on the `python-gettext`_ package, which itself suggests
 using the Babel_ package, but it does exactly what we need and its
 releases are stored on PyPI, so we ignore that suggestion.
