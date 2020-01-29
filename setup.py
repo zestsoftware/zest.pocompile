@@ -7,12 +7,13 @@ setup(
     version=version,
     description="Compile po files when releasing a package",
     long_description=(open("README.rst").read() + "\n" + open("CHANGES.rst").read()),
-    # Get more strings from
-    # http://pypi.python.org/pypi?%3Aaction=list_classifiers
+    # Get more strings from https://pypi.org/classifiers/
     classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Framework :: Buildout",
+        "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
-        "Framework :: Buildout",
         "Topic :: Software Development :: Internationalization",
     ],
     keywords="i18n locales po compile release",
@@ -24,9 +25,9 @@ setup(
     namespace_packages=["zest"],
     include_package_data=True,
     zip_safe=False,
-    install_requires=["setuptools", "python-gettext",],
+    install_requires=["setuptools", "python-gettext"],
     entry_points={
-        "console_scripts": ["pocompile = zest.pocompile.compile:main",],
+        "console_scripts": ["pocompile = zest.pocompile.compile:main"],
         "zest.releaser.releaser.after_checkout": [
             "zest_pocompile = zest.pocompile.compile:compile_in_tag",
         ],
