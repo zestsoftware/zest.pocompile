@@ -26,7 +26,7 @@ except ImportError:
     # No zest.releaser available
     ask = None
 
-logger = logging.getLogger('zest.pocompile')
+logger = logging.getLogger("zest.pocompile")
 
 
 def find_lc_messages(path, dry_run=False):
@@ -41,7 +41,7 @@ def find_lc_messages(path, dry_run=False):
         if not os.path.isdir(dir_path):
             continue
 
-        if directory == 'LC_MESSAGES':
+        if directory == "LC_MESSAGES":
             compile_po(dir_path, dry_run=dry_run)
         else:
             find_lc_messages(dir_path, dry_run=dry_run)
@@ -56,15 +56,15 @@ def compile_po(path, dry_run=False):
     Adapted from collective.releaser.
     """
     for domain_file in os.listdir(path):
-        if domain_file.endswith('.po'):
+        if domain_file.endswith(".po"):
             file_path = join(path, domain_file)
             if dry_run:
                 logger.info("Found .po file: %s" % file_path)
                 continue
             logger.info("Building .mo for %s" % file_path)
-            mo_file = join(path, '%s.mo' % domain_file[:-3])
+            mo_file = join(path, "%s.mo" % domain_file[:-3])
             mo_content = Msgfmt(file_path, name=file_path).get()
-            mo = open(mo_file, 'wb')
+            mo = open(mo_file, "wb")
             mo.write(mo_content)
             mo.close()
 
@@ -78,15 +78,15 @@ def compile_in_tag(data):
     indeed called as an entry point of zest.releaser, we ask the user
     what to do: continue with the release or not.
     """
-    tagdir = data.get('tagdir')
+    tagdir = data.get("tagdir")
     if not tagdir:
         logger.warn("Aborted compiling of po files: no tagdir found in data.")
         return
-    logger.info('Finding and compiling po files in %s', tagdir)
+    logger.info("Finding and compiling po files in %s", tagdir)
     try:
         find_lc_messages(tagdir)
     except Exception:
-        logger.warn('Finding and compiling aborted after exception.', exc_info=True)
+        logger.warn("Finding and compiling aborted after exception.", exc_info=True)
         if data and ask:
             # We were called as an entry point of zest.releaser.
             if not ask(
@@ -122,5 +122,5 @@ def main(*args, **kwargs):
     # This might very well raise an exception like 'Not a directory'
     # and that is fine.
     for directory in directories:
-        logger.info('Finding and compiling po files in %s', directory)
+        logger.info("Finding and compiling po files in %s", directory)
         find_lc_messages(directory, options.dry_run)
