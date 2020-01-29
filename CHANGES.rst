@@ -4,7 +4,9 @@ Changelog
 1.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Claim Python 2 and 3 compatibility.
+  Seems to work fine.
+  [maurits]
 
 
 1.4 (2013-07-05)
