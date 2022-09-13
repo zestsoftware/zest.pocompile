@@ -4,7 +4,11 @@ Changelog
 1.5.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add ``zest.pocompile.available``.
+  You can use this to let the full release of a package fail early when ``zest.pocompile`` is not available.
+  Edit its ``setup.cfg``, and add a ``[zest.releaser]`` section with value
+  ``prereleaser.before = zest.pocompile.available``
+  [maurits]
 
 
 1.5.0 (2020-01-29)

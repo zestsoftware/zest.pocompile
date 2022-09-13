@@ -97,6 +97,13 @@ Then it creates a source distribution (``sdist``) and possibly a wheel (``bdist_
 When ``zest.pocompile`` is added to the mix, it compiles the ``.po`` files immediately after checking out the tag.
 This is right in time for creating the distributions, which should now contain the ``.mo`` files.
 
+You may want the full release to fail early when ``zest.pocompile`` is not available.
+Since version 1.6.0 this is possible by editing the ``setup.cfg`` of the package where you want this, and add the following section::
+
+    [zest.releaser]
+    prereleaser.before =
+        zest.pocompile.available
+
 
 Credits
 =======
