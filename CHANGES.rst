@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.0a1 (unreleased)
+2.0.0a1 (2023-07-13)
 --------------------
 
 - Require Python 3.8+ and switch to native namespace packages.
