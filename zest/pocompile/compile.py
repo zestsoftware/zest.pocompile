@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Compiles po files.
 
 This walks through the given directories, finds all po translation
@@ -100,8 +99,7 @@ def compile_in_tag(data):
 
 
 def main(*args, **kwargs):
-    """Run as stand-alone program.
-    """
+    """Run as stand-alone program."""
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     # Parsing arguments.  Note that the parse_args call might already

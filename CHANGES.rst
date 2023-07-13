@@ -1,10 +1,12 @@
 Changelog
 =========
 
-1.6.1 (unreleased)
-------------------
+2.0.0a1 (unreleased)
+--------------------
 
-- Nothing changed yet.
+- Require Python 3.8+ and switch to native namespace packages.
+  This is needed because ``zest.releaser`` 9.0.0a1 does the same.
+  [maurits]
 
 
 1.6.0 (2022-09-13)
