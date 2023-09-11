@@ -4,7 +4,7 @@ Changelog
 2.0.0a2 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Make final release.  Nothing changed since the last alpha.  [maurits]
 
 
 2.0.0a1 (2023-07-13)
